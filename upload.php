@@ -15,59 +15,59 @@ $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;Acco
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 
-	// Membuat BlobService yang merepresentasikan Blob service untuk storage account
-	$createContainerOptions = new CreateContainerOptions();
-	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+// Membuat BlobService yang merepresentasikan Blob service untuk storage account
+$createContainerOptions = new CreateContainerOptions();
+$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+
+// Menetapkan metadata dari container.
+$createContainerOptions->addMetaData("key1", "value1");
+$createContainerOptions->addMetaData("key2", "value2");
+$containerName = "blokblobs".generateRandomString();
+
+try {
+	// Membuat container.
+	$blobClient->createContainer($containerName, $createContainerOptions);
 	
-	// Menetapkan metadata dari container.
-	$createContainerOptions->addMetaData("key1", "value1");
-	$createContainerOptions->addMetaData("key2", "value2");
-	$containerName = "blokblobs".generateRandomString();
+	// Upload File.
+	if (isset($_POST['submit'])) {
+		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
+		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+	}
 	
-	try {
-		// Membuat container.
-		$blobClient->createContainer($containerName, $createContainerOptions);
-		
-		// Upload File.
-		if (isset($_POST['submit'])) {
-			$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
-			$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+	echo fread($content, filesize($fileToUpload));
+	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+	header("Location: upload.php");
+	
+	// List Blobs.
+	$listBlobsOptions = new ListBlobsOptions();
+	$listBlobsOptions->setPrefix("");
+	do{
+		$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+		foreach ($result->getBlobs() as $blob)
+		{
+			echo $blob->getName().": ".$blob->getUrl()."<br />";
 		}
-		
-		echo fread($content, filesize($fileToUpload));
-		$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
-		header("Location: upload.php");
-		
-		// List Blobs.
-		$listBlobsOptions = new ListBlobsOptions();
-		$listBlobsOptions->setPrefix("");
-		do{
-			$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-			foreach ($result->getBlobs() as $blob)
-			{
-				echo $blob->getName().": ".$blob->getUrl()."<br />";
-			}
-			$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-		}
-		while($result->getContinuationToken());
-		echo "<br />";
-		
-		// Mendapatkan Blob
-		$blob = $blobClient->getBlobs($containerName, $fileToUpload);
-		fpassthru($blob->getContentStream());
+		$listBlobsOptions->setContinuationToken($result->getContinuationToken());
 	}
+	while($result->getContinuationToken());
+	echo "<br />";
 	
-	catch(ServiceException $e){
-	$code = $e->getCode();
-	$error_message = $e->getMessage();
-	echo $code.": ".$error_message."<br />";
-	}
-	
-	catch(InvalidArgumentTypeException $e){
-	$code = $e->getCode();
-	$error_message = $e->getMessage();
-	echo $code.": ".$error_message."<br />";
-	}
+	// Mendapatkan Blob
+	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
+	fpassthru($blob->getContentStream());
+}
+
+catch(ServiceException $e){
+$code = $e->getCode();
+$error_message = $e->getMessage();
+echo $code.": ".$error_message."<br />";
+}
+
+catch(InvalidArgumentTypeException $e){
+$code = $e->getCode();
+$error_message = $e->getMessage();
+echo $code.": ".$error_message."<br />";
+}
 
 ?>
 
