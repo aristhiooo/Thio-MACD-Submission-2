@@ -107,20 +107,20 @@
             $registrants = $stmt->fetchAll(); 
             if(count($registrants) > 0) {
                 echo "<h2>Ini dia orang-orang yang sudah mendaftar.</h2>";
-                echo "<table class='table table-hover'><thread>";
+                echo "<table class='table table-hover'>";
                 echo "<tr><th>Nama Lengkap</th>";
                 echo "<th>NIM</th>";
                 echo "<th>Program Studi</th>";
-				echo "<th>No. HP</th>";
-                echo "<th>Tanggal daftar</th></tr></thread><tbody>";
+		echo "<th>No. HP</th>";
+                echo "<th>Tanggal daftar</th></tr>";
                 foreach($registrants as $registrant) {
                     echo "<tr><td>".$registrant['nama']."</td>";
                     echo "<td>".$registrant['nim']."</td>";
                     echo "<td>".$registrant['prodi']."</td>";
-					echo "<td>".$registrant['hp']."</td>";
+		    echo "<td>".$registrant['hp']."</td>";
                     echo "<td>".$registrant['date']."</td></tr>";
                 }
-                echo "</tbody></table>";
+                echo "</table>";
             } else {
                 echo "<h3>Belumpi ada yang mendaftar :(</h3>";
             }
