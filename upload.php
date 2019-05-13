@@ -9,7 +9,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
 # Mengatur instance dari Azure::Storage::Client
-$connectionString = "DefaultEndpointsProtocol=https;AccountName=".getenv('ACCOUNT_NAME').";AccountKey=".getenv('ACCOUNT_KEY');
+$connectionString = "DefaultEndpointsProtocol=https;AccountName=account_name;AccountKey=aacount_key;EndpointSuffix=core.windows.net;
 
 // Membuat blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
