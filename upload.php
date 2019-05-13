@@ -14,7 +14,7 @@ $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;Acco
 // Membuat blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
-if (!isset($_GET["Cleanup"])) {
+// if (!isset($_GET["Cleanup"])) {
 	# Membuat BlobService yang merepresentasikan Blob service untuk storage account
 	$createContainerOptions = new CreateContainerOptions();
 	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
@@ -68,6 +68,7 @@ if (!isset($_GET["Cleanup"])) {
 	$error_message = $e->getMessage();
 	echo $code.": ".$error_message."<br />";
 	}
+// }
 ?>
 
 <!DOCTYPE html>
