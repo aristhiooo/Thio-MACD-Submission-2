@@ -39,18 +39,6 @@ try {
 	header("Location: upload.php");
 	
 	// List Blobs.
-	$listBlobsOptions = new ListBlobsOptions();
-	$listBlobsOptions->setPrefix("");
-	do{
-		$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-		foreach ($result->getBlobs() as $blob)
-		{
-			echo $blob->getName().": ".$blob->getUrl()."<br />";
-		}
-		$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-	}
-	while($result->getContinuationToken());
-	echo "<br />";
 	
 	// Mendapatkan Blob
 	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
@@ -134,7 +122,10 @@ echo $code.": ".$error_message."<br />";
 			</thead>
 			<tbody>
 				<?php
+	    			$listBlobsOptions = new ListBlobsOptions();
+				$listBlobsOptions->setPrefix("");
 				do {
+					$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 					foreach ($result->getBlobs() as $blob)
 					{
 						?>
