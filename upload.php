@@ -9,12 +9,12 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
 # Mengatur instance dari Azure::Storage::Client
-$connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=kElcHq/CRZFxSp+7Rl+6mV0JZ7ZOV9jLo16R7YGH8047g9XIXKxyJeVe+uXqiTeWD6AiVzE/E8Vim7CxqNNdag==;EndpointSuffix=core.windows.net";
+$connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=kElcHq/CRZFxSp+7Rl+6mV0JZ7ZOV9jLo16R7YGH8047g9XIXKxyJeVe+uXqiTeWD6AiVzE/E8Vim7CxqNNdag==;EndpointSuffix=core.windows.net;
 
 // Membuat blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
-// if (!isset($_GET["Cleanup"])) {
+
 	// Membuat BlobService yang merepresentasikan Blob service untuk storage account
 	$createContainerOptions = new CreateContainerOptions();
 	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
@@ -68,7 +68,7 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 	$error_message = $e->getMessage();
 	echo $code.": ".$error_message."<br />";
 	}
-// }
+
 ?>
 
 <!DOCTYPE html>
