@@ -121,12 +121,10 @@ catch(InvalidArgumentTypeException $e){
 			</thead>
 			<tbody>
 				<?php
-				$listBlobsOptions = new ListBlobsOptions();
-				$listBlobsOptions->setPrefix("");
 				do {
-					$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-					foreach ($result->getBlobs() as $blob)?>
-					{						
+					foreach ($result->getBlobs() as $blob)
+					{
+						?>
 						<tr>
 							<td><?php echo $blob->getName() ?></td>
 							<td><?php echo $blob->getUrl() ?></td>
@@ -137,7 +135,8 @@ catch(InvalidArgumentTypeException $e){
 								</form>
 							</td>
 						</tr>
-					} <?php
+						<?php
+					}
 					$listBlobsOptions->setContinuationToken($result->getContinuationToken());
 				} while($result->getContinuationToken());
 				?>
