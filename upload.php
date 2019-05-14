@@ -132,10 +132,6 @@ if (!isset($_GET["Cleanup"])) {
 								</form>
 							</td>
 						</tr>
-						<?php
-					}
-					
-				?>
 			</tbody>
 		</table>
 
