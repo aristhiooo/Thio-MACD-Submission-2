@@ -1,7 +1,7 @@
 ---
-services: storage
+services: Azure Storage and Computer Vision
 platforms: php
-author: roygara
+author: Aristiyo Rahadiyan A.
 ---
 
 # Transfer objects to and from Azure Blob storage using PHP
