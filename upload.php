@@ -12,42 +12,42 @@ $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;Acco
 
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
-$createContainerOptions = new CreateContainerOptions();
-$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
-
-$createContainerOptions->addMetaData("key1", "value1");
-$createContainerOptions->addMetaData("key2", "value2");
-$containerName = "blok".generateRandomString();
-
-try {
-	$blobClient->createContainer($containerName, $createContainerOptions);
+if (!isset($_GET["Cleanup"])) {
+	$createContainerOptions = new CreateContainerOptions();
+	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+	$createContainerOptions->addMetaData("key1", "value1");
+	$createContainerOptions->addMetaData("key2", "value2");
+	$containerName = "blok".generateRandomString();
 	
-	if (isset($_POST['submit'])) {
-		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
-		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+	try {
+		$blobClient->createContainer($containerName, $createContainerOptions);
+		
+		if (isset($_POST['submit'])) {
+			$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
+			$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+		}
+		
+		echo fread($content, filesize($fileToUpload));
+		$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+		header("Location: upload.php");
+		
+		// Mendapatkan Blob
+		$blob = $blobClient->getBlobs($containerName, $fileToUpload);
+		fpassthru($blob->getContentStream());
 	}
 	
-	echo fread($content, filesize($fileToUpload));
-	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
-	header("Location: upload.php");
+	catch(ServiceException $e){
+		$code = $e->getCode();
+		$error_message = $e->getMessage();
+		echo $code.": ".$error_message."<br />";
+	}
 	
-	// Mendapatkan Blob
-	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
-	fpassthru($blob->getContentStream());
+	catch(InvalidArgumentTypeException $e){
+		$code = $e->getCode();
+		$error_message = $e->getMessage();
+		echo $code.": ".$error_message."<br />";
+	}
 }
-
-catch(ServiceException $e){
-$code = $e->getCode();
-$error_message = $e->getMessage();
-echo $code.": ".$error_message."<br />";
-}
-
-catch(InvalidArgumentTypeException $e){
-$code = $e->getCode();
-$error_message = $e->getMessage();
-echo $code.": ".$error_message."<br />";
-}
-
 ?>
 
 <!DOCTYPE html>
