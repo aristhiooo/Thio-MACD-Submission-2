@@ -21,7 +21,7 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 // Menetapkan metadata dari container.
 $createContainerOptions->addMetaData("key1", "value1");
 $createContainerOptions->addMetaData("key2", "value2");
-$containerName = "blokblobs".generateRandomString();
+$containerName = "blok".generateRandomString();
 
 try {
 	// Membuat container.
