@@ -31,7 +31,17 @@ if (!isset($_GET["Cleanup"])) {
 		$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 		header("Location: upload.php");
 		
-		// Mendapatkan Blob
+		$listBlobsOptions = new ListBlobsOptions();
+		$listBlobsOptions->setPrefix("");
+		do {
+			$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+			foreach ($result->getBlobs() as $blob)
+			{
+			}
+			$listBlobsOptions->setContinuationToken($result->getContinuationToken());
+		}
+		while($result->getContinuationToken());
+		
 		$blob = $blobClient->getBlobs($containerName, $fileToUpload);
 		fpassthru($blob->getContentStream());
 	}
@@ -112,14 +122,6 @@ if (!isset($_GET["Cleanup"])) {
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-	    			$listBlobsOptions = new ListBlobsOptions();
-				$listBlobsOptions->setPrefix("");
-				do {
-					$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-					foreach ($result->getBlobs() as $blob)
-					{
-						?>
 						<tr>
 							<td><?php echo $blob->getName() ?></td>
 							<td><?php echo $blob->getUrl() ?></td>
@@ -132,8 +134,7 @@ if (!isset($_GET["Cleanup"])) {
 						</tr>
 						<?php
 					}
-					$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-				} while($result->getContinuationToken());
+					
 				?>
 			</tbody>
 		</table>
