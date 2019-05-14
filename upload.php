@@ -10,24 +10,18 @@ use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=qz3LFc/8O885IctHD74a/zfurR1PcFofvo0+ap+8elmeJj2POb1bc9vvUlo7j5VV1kap4hE+C+uZqO5SMZ3g3g==;EndpointSuffix=core.windows.net";
 
-// Membuat blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
-
-// Membuat BlobService yang merepresentasikan Blob service untuk storage account
 $createContainerOptions = new CreateContainerOptions();
 $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
-// Menetapkan metadata dari container.
 $createContainerOptions->addMetaData("key1", "value1");
 $createContainerOptions->addMetaData("key2", "value2");
 $containerName = "blok".generateRandomString();
 
 try {
-	// Membuat container.
 	$blobClient->createContainer($containerName, $createContainerOptions);
 	
-	// Upload File.
 	if (isset($_POST['submit'])) {
 		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
 		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
@@ -36,8 +30,6 @@ try {
 	echo fread($content, filesize($fileToUpload));
 	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 	header("Location: upload.php");
-	
-	// List Blobs.
 	
 	// Mendapatkan Blob
 	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
