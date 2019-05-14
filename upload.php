@@ -57,7 +57,7 @@ if (!isset($_GET["Cleanup"])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://raw.githubusercontent.com/muhrizky/Smart-Parkir/master/parking_meter__2__Mrq_icon.ico">
+    <link rel="icon" href="">
 
     <title>Formulir Calon Anggota UKM Seni UNM</title>
 
