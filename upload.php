@@ -13,10 +13,7 @@ $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;Acco
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 if (!isset($_GET["Cleanup"])) {
-	$createContainerOptions = new CreateContainerOptions();
-	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
-	$createContainerOptions->addMetaData("key1", "value1");
-	$createContainerOptions->addMetaData("key2", "value2");
+	
 	$containerName = "thioblob";
 	
 	try {
