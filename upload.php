@@ -17,8 +17,6 @@ if (!isset($_GET["Cleanup"])) {
 	$containerName = "thioblob";
 	
 	try {
-		$blobClient->createContainer($containerName, $createContainerOptions);
-		
 		if (isset($_POST['submit'])) {
 			$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
 			$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
