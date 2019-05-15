@@ -11,12 +11,11 @@ use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=qz3LFc/8O885IctHD74a/zfurR1PcFofvo0+ap+8elmeJj2POb1bc9vvUlo7j5VV1kap4hE+C+uZqO5SMZ3g3g==;EndpointSuffix=core.windows.net";
 
 $blobClient = BlobRestProxy::createBlobService($connectionString);
-
-if (!isset($_GET["Cleanup"])) {
 	
-	$containerName = "thioblob";
+$containerName = "thioblob";
 	
 	try {
+		
 		if (isset($_POST['submit'])) {
 			$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
 			$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
@@ -52,7 +51,6 @@ if (!isset($_GET["Cleanup"])) {
 		$error_message = $e->getMessage();
 		echo $code.": ".$error_message."<br />";
 	}
-}
 ?>
 
 <!DOCTYPE html>
