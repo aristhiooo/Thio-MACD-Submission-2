@@ -28,7 +28,7 @@ if (!isset($_GET["Cleanup"])) {
 		header("Location: upload.php");
 		
 		$listBlobsOptions = new ListBlobsOptions();
-		$listBlobsOptions->setPrefix("asbd");
+		$listBlobsOptions->setPrefix("");
 		//do {
 		//	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 		//	foreach ($result->getBlobs() as $blob)
