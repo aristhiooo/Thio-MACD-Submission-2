@@ -14,31 +14,28 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 	
 $containerName = "thioblob";
 	
-try {
-	
-	if (isset($_POST['submit'])) {
-		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
-		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
-	}
-	
-	echo fread($content, filesize($fileToUpload));
-	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
-	header("Location: upload.php");
-	
-	$listBlobsOptions = new ListBlobsOptions();
-	$listBlobsOptions->setPrefix("");
-	do {
-		$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-		foreach ($result->getBlobs() as $blob)
-		{
-		}
-		$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-	}
-	while($result->getContinuationToken());
-	
-	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
-	fpassthru($blob->getContentStream());
+if (isset($_POST['submit'])) {
+	$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
+	$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 }
+
+echo fread($content, filesize($fileToUpload));
+$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+header("Location: upload.php");
+
+$listBlobsOptions = new ListBlobsOptions();
+$listBlobsOptions->setPrefix("");
+do {
+	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+	foreach ($result->getBlobs() as $blob)
+	{
+	}
+	$listBlobsOptions->setContinuationToken($result->getContinuationToken());
+}
+while($result->getContinuationToken());
+
+$blob = $blobClient->getBlobs($containerName, $fileToUpload);
+fpassthru($blob->getContentStream());
 
 catch(ServiceException $e){
 	$code = $e->getCode();
