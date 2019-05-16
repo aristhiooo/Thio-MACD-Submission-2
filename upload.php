@@ -28,15 +28,15 @@ if (!isset($_GET["Cleanup"])) {
 		header("Location: upload.php");
 		
 		$listBlobsOptions = new ListBlobsOptions();
-		$listBlobsOptions->setPrefix("");
-		do {
-			$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-			foreach ($result->getBlobs() as $blob)
-			{
-			}
-			$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-		}
-		while($result->getContinuationToken());
+		$listBlobsOptions->setPrefix("asbd");
+		//do {
+		//	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+		//	foreach ($result->getBlobs() as $blob)
+		//	{
+		//	}
+		//	$listBlobsOptions->setContinuationToken($result->getContinuationToken());
+		// }
+		// while($result->getContinuationToken());
 		
 		$blob = $blobClient->getBlobs($containerName, $fileToUpload);
 		fpassthru($blob->getContentStream());
@@ -118,6 +118,11 @@ if (!isset($_GET["Cleanup"])) {
 				</tr>
 			</thead>
 			<tbody>
+				<?php
+				do {
+					foreach ($result->getBlobs() as $blob)
+					{
+						?>
 						<tr>
 							<td><?php echo $blob->getName() ?></td>
 							<td><?php echo $blob->getUrl() ?></td>
@@ -128,6 +133,11 @@ if (!isset($_GET["Cleanup"])) {
 								</form>
 							</td>
 						</tr>
+						<?php
+					}
+					$listBlobsOptions->setContinuationToken($result->getContinuationToken());
+				} while($result->getContinuationToken());
+				?>
 			</tbody>
 		</table>
 
