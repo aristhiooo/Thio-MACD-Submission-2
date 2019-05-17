@@ -1,58 +1,54 @@
 <?php
 require_once 'vendor/autoload.php';
 require_once "./random_string.php";
+
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
+
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=qz3LFc/8O885IctHD74a/zfurR1PcFofvo0+ap+8elmeJj2POb1bc9vvUlo7j5VV1kap4hE+C+uZqO5SMZ3g3g==;EndpointSuffix=core.windows.net";
+
 $blobClient = BlobRestProxy::createBlobService($connectionString);
-if (!isset($_GET["Cleanup"])) {
-	$createContainerOptions = new CreateContainerOptions();
-	$createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
-	$createContainerOptions->addMetaData("key1", "value1");
-	$createContainerOptions->addMetaData("key2", "value2");
-	$containerName = "thioblob";
+
+$containerName = "thioblob";
 	
-	try {
-		$blobClient->createContainer($containerName, $createContainerOptions);
-		
-		if (isset($_POST['submit'])) {
-			$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
-			$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
-		}
-		
-		echo fread($content, filesize($fileToUpload));
-		$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
-		header("Location: upload.php");
-		
-		$listBlobsOptions = new ListBlobsOptions();
-		$listBlobsOptions->setPrefix("");
-		//do {
-		//	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-		//	foreach ($result->getBlobs() as $blob)
-		//	{
-		//	}
-		//	$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-		// }
-		// while($result->getContinuationToken());
-		
-		$blob = $blobClient->getBlobs($containerName, $fileToUpload);
-		fpassthru($blob->getContentStream());
+try {	
+	if (isset($_POST['submit'])) {
+		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
+		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 	}
 	
-	catch(ServiceException $e){
-		$code = $e->getCode();
-		$error_message = $e->getMessage();
-		echo $code.": ".$error_message."<br />";
-	}
+	echo fread($content, filesize($fileToUpload));
+	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+	header("Location: upload.php");
 	
-	catch(InvalidArgumentTypeException $e){
-		$code = $e->getCode();
-		$error_message = $e->getMessage();
-		echo $code.": ".$error_message."<br />";
-	}
+	$listBlobsOptions = new ListBlobsOptions();
+	$listBlobsOptions->setPrefix("");
+	//do {
+	//	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+	//	foreach ($result->getBlobs() as $blob)
+	//	{
+	//	}
+	//	$listBlobsOptions->setContinuationToken($result->getContinuationToken());
+	// }
+	// while($result->getContinuationToken());
+	
+	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
+	fpassthru($blob->getContentStream());
+}
+
+catch(ServiceException $e){
+	$code = $e->getCode();
+	$error_message = $e->getMessage();
+	echo $code.": ".$error_message."<br />";
+}
+
+catch(InvalidArgumentTypeException $e){
+	$code = $e->getCode();
+	$error_message = $e->getMessage();
+	echo $code.": ".$error_message."<br />";
 }
 ?>
 
