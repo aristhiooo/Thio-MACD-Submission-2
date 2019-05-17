@@ -14,7 +14,7 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 $containerName = "thioblob";
 	
-try {	
+
 	if (isset($_POST['submit'])) {
 		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
 		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
@@ -37,19 +37,6 @@ try {
 	
 	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
 	fpassthru($blob->getContentStream());
-}
-
-catch(ServiceException $e){
-	$code = $e->getCode();
-	$error_message = $e->getMessage();
-	echo $code.": ".$error_message."<br />";
-}
-
-catch(InvalidArgumentTypeException $e){
-	$code = $e->getCode();
-	$error_message = $e->getMessage();
-	echo $code.": ".$error_message."<br />";
-}
 ?>
 
 <!DOCTYPE html>
