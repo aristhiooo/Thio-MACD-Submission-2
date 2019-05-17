@@ -45,6 +45,9 @@ if (isset($_POST['submit'])) {
 			<main role="main" class="container">
 				<div class="starter-template">
 					<br><br><br>
+					<h1>Submission 2 - Cognition Service</h1>
+					<p>Melakukan analisis gambar menggunakan Cognitive Services.</p>
+					<span class="border-top my-3"></span>
 				</div>
 				
 				<script type="text/javascript">
@@ -105,7 +108,7 @@ if (isset($_POST['submit'])) {
 					<div id="imageDiv" style="width:420px; display:table-cell;">
 						<b>Source Image:</b><br><br>
 						<img id="sourceImage" width="400" /><br>
-						<h3 id="description">Loading description. . .</h3>
+						<h3 id="description">Sedang Memuat Gambar...</h3>
 					</div>
 				</div>
 	</body>
