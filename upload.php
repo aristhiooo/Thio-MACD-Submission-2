@@ -34,7 +34,6 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="">
 
     <title>Formulir Calon Anggota UKM Seni UNM</title>
 
@@ -58,7 +57,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 				<a class="nav-link" href="https://thio-webapps.azurewebsites.net/">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="https://thio-webapps.azurewebsites.net/upload.php">Lihat Analisis Gambar.<span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="https://thio-webapps.azurewebsites.net/upload.php">Upload dan Analisis Gambar.<span class="sr-only">(current)</span></a>
 			</li>
 		</div>
 		</nav>
@@ -68,7 +67,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
         		<h1>Analisis Alat Musik</h1>
 				<p class="lead">Pilih foto alat musik anda<br> Kemudian klik <b>Upload</b>. Untuk menganlisa foto, pilih <b>analyze</b> pada tabel.</p>
 				<span class="border-top my-3"></span>
-			</div>
+		</div>
 			
 		<div class="mt-4 mb-2">
 			<form class="d-flex justify-content-lefr" action="upload.php" method="post" enctype="multipart/form-data">
@@ -76,10 +75,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 				<input type="submit" name="submit" value="Upload">
 			</form>
 		</div>
-		
-		<br>
-		<br>
-		
+		<br>		
 		<table class='table table-hover'>
 			<thead>
 				<tr>
@@ -100,7 +96,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 							<td>
 								<form action="computervision.php" method="post">
 									<input type="hidden" name="url" value="<?php echo $blob->getUrl()?>">
-									<input type="submit" name="submit" value="Analyze!" class="btn btn-primary">
+									<input type="submit" name="submit" value="Lihat" class="btn btn-primary">
 								</form>
 							</td>
 						</tr>
