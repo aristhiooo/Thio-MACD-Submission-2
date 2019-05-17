@@ -34,7 +34,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>Formulir Calon Anggota UKM Seni UNM</title>
+		<title>Submission 2 - Azure Storage & Cognitive Service</title>
 		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 		<!-- Bootstrap core CSS -->
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +60,9 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 			
 			<main role="main" class="container">
 				<div class="starter-template"> <br><br><br>
-					<h1>Analisis Alat Musik</h1>
+					<h1>Submission 2 - Azure Storage</h1>
+					<p> Mengunggah berkas gambar ke Azure Blob Storage.<br>
+						Menampilkan berkas yang sudah diunggah ke Azure Blob Storage.</p><br>
 					<p class="lead">Pilih foto alat musik anda<br> Kemudian klik <b>Upload</b>. Untuk menganlisa foto, pilih <b>analyze</b> pada tabel.</p>
 					<span class="border-top my-3"></span>
 				</div>				
