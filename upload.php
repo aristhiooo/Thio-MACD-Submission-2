@@ -49,10 +49,10 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 			</button>
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="https://thio-webapps.azurewebsites.net/">Submission 1<span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item active">
 						<a class="nav-link" href="https://thio-webapps.azurewebsites.net/upload.php">Submission 2</a>
 					</li>
 					</div>
