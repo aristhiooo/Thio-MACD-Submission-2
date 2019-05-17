@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>Formulir Calon Anggota UKM Seni UNM</title>
+		<title>Submission 1 -  Azure Web App & SQL Database</title>
 		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 		<!-- Bootstrap core CSS -->
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,9 @@
 			<main role="main" class="container">
 				<div class="starter-template">
 					<br><br><br>
-					<h1>Formulir Calon Anggota UKM Seni UNM</h1>
+					<h1>Submission 1 -  Azure Web App & SQL Database</h1>
+					<p>Membuat form untuk menambahkan data ke database SQL.<br>
+						Menampilkan data yang ada pada database SQL.</p><br>
 					<p class="lead">Silahkan isi formulir di bawah ini, Kemudian Click <b>Submit</b> untuk menjadi makhluk manis.</p>
 					<br>
 					<span class="border-top my-3"></span>
