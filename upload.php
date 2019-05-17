@@ -9,34 +9,22 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=thiowebapps;AccountKey=qz3LFc/8O885IctHD74a/zfurR1PcFofvo0+ap+8elmeJj2POb1bc9vvUlo7j5VV1kap4hE+C+uZqO5SMZ3g3g==;EndpointSuffix=core.windows.net";
-
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 $containerName = "thioblob";
 	
-
-	if (isset($_POST['submit'])) {
-		$fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
-		$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
-	}
-	
+if (isset($_POST['submit'])) {
+	$fileToUpload = $_FILES["fileToUpload"]["name"];
+	$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 	echo fread($content, filesize($fileToUpload));
+		
 	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 	header("Location: upload.php");
+}	
 	
-	$listBlobsOptions = new ListBlobsOptions();
-	$listBlobsOptions->setPrefix("");
-	//do {
-	//	$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-	//	foreach ($result->getBlobs() as $blob)
-	//	{
-	//	}
-	//	$listBlobsOptions->setContinuationToken($result->getContinuationToken());
-	// }
-	// while($result->getContinuationToken());
-	
-	$blob = $blobClient->getBlobs($containerName, $fileToUpload);
-	fpassthru($blob->getContentStream());
+$listBlobsOptions = new ListBlobsOptions();
+$listBlobsOptions->setPrefix("");
+$result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 ?>
 
 <!DOCTYPE html>
