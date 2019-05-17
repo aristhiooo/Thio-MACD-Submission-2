@@ -63,7 +63,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 					<h1>Submission 2 - Azure Storage</h1>
 					<p> Mengunggah berkas gambar ke Azure Blob Storage.<br>
 						Menampilkan berkas yang sudah diunggah ke Azure Blob Storage.</p><br>
-					<p class="lead">Pilih foto alat musik anda<br> Kemudian klik <b>Upload</b>. Untuk menganlisa foto, pilih <b>analyze</b> pada tabel.</p>
+					<p class="lead">Pilih foto anda<br> Kemudian klik <b>Upload</b>. Untuk menganlisa foto, pilih <b>Lihat</b> pada tabel.</p>
 					<span class="border-top my-3"></span>
 				</div>				
 				<div class="mt-4 mb-2">
